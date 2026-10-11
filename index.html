@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#faf9f6" />
+  <meta name="description" content="Bekam Photo Studio — portraits, weddings, events, and moments worth remembering." />
+  <title>Bekam Photo Studio | Every Moment, Beautifully Told</title>
+
+  <!-- Tailwind CSS CDN: convenient for this static, no-build project. -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Georgia', 'Times New Roman', 'serif'],
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            paper: '#faf9f6',
+            ink: '#171715',
+            muted: '#77756f',
+            accent: '#b48b61'
+          },
+          boxShadow: {
+            soft: '0 18px 55px rgba(0,0,0,.08)'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root { color-scheme: light; }
+    html.dark { color-scheme: dark; }
+    body { transition: background-color .3s ease, color .3s ease; }
+    .theme-surface, .theme-text, .theme-border { transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
+    .photo-card img { transition: transform .65s cubic-bezier(.2,.7,.2,1); }
+    .photo-card:hover img { transform: scale(1.055); }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .menu-open { display: flex !important; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body class="bg-paper text-ink dark:bg-[#111110] dark:text-[#f5f2ec] font-sans antialiased">
+  <!-- Navigation -->
+  <header class="fixed top-0 z-50 w-full border-b border-black/5 bg-paper/85 backdrop-blur-xl dark:border-white/10 dark:bg-[#111110]/85 theme-surface theme-border">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8" aria-label="Main navigation">
+      <a href="#home" class="flex items-center gap-3" aria-label="Bekam Photo Studio home">
+        <span class="grid h-10 w-10 place-items-center rounded-full border border-current font-display text-xl">B</span>
+        <span class="leading-tight">
+          <span class="block text-sm font-semibold tracking-[.16em]">BEKAM</span>
+          <span class="block text-[10px] tracking-[.27em] text-muted dark:text-stone-400">PHOTO STUDIO</span>
+        </span>
+      </a>
+
+      <div id="desktop-menu" class="hidden items-center gap-8 text-sm md:flex">
+        <a class="nav-link hover:text-accent" href="#home">Home</a>
+        <a class="nav-link hover:text-accent" href="#portfolio">Portfolio</a>
+        <a class="nav-link hover:text-accent" href="#services">Services</a>
+        <a class="nav-link hover:text-accent" href="#about">About</a>
+        <a class="nav-link hover:text-accent" href="#contact">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="theme-toggle" type="button" class="grid h-10 w-10 place-items-center rounded-full border border-black/15 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10" aria-label="Switch to dark mode" title="Switch theme">
+          <svg id="theme-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"/></svg>
+        </button>
+        <a href="#contact" class="hidden rounded-full bg-ink px-5 py-3 text-xs font-semibold tracking-wide text-white transition hover:bg-accent dark:bg-stone-100 dark:text-ink dark:hover:bg-accent sm:inline-flex">BOOK A SESSION <span class="ml-2">↗</span></a>
+        <button id="mobile-menu-button" class="grid h-10 w-10 place-items-center rounded-full border border-black/15 dark:border-white/20 md:hidden" aria-label="Open navigation" aria-expanded="false">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+    <div id="mobile-menu" class="hidden flex-col gap-1 border-t border-black/5 bg-paper px-5 py-4 dark:border-white/10 dark:bg-[#111110] md:hidden">
+      <a class="rounded-lg px-3 py-3 hover:bg-black/5 dark:hover:bg-white/10" href="#home">Home</a>
+      <a class="rounded-lg px-3 py-3 hover:bg-black/5 dark:hover:bg-white/10" href="#portfolio">Portfolio</a>
+      <a class="rounded-lg px-3 py-3 hover:bg-black/5 dark:hover:bg-white/10" href="#services">Services</a>
+      <a class="rounded-lg px-3 py-3 hover:bg-black/5 dark:hover:bg-white/10" href="#about">About</a>
+      <a class="rounded-lg px-3 py-3 hover:bg-black/5 dark:hover:bg-white/10" href="#contact">Contact / Booking</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="home" class="mx-auto grid min-h-screen max-w-7xl items-center gap-12 px-5 pb-16 pt-32 md:grid-cols-2 md:px-8 md:pb-20 md:pt-28">
+      <div class="reveal order-2 md:order-1">
+        <p class="mb-6 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[.28em] text-accent"><span class="h-px w-9 bg-accent"></span> Photography with feeling</p>
+        <h1 class="max-w-xl font-display text-5xl leading-[1.06] tracking-[-.045em] sm:text-6xl lg:text-7xl">Every moment,<br /><em class="font-normal text-accent">beautifully</em> told.</h1>
+        <p class="mt-7 max-w-md text-base leading-7 text-stone-600 dark:text-stone-300 md:text-lg">Honest portraits. Unforgettable celebrations. The little details you never want to forget — captured with care.</p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="#portfolio" class="rounded-full bg-ink px-7 py-4 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-accent dark:bg-stone-100 dark:text-ink dark:hover:bg-accent">Explore our work <span class="ml-2">↗</span></a>
+          <a href="#contact" class="rounded-full border border-black/20 px-7 py-4 text-sm font-semibold transition hover:border-accent hover:text-accent dark:border-white/25">Book a session</a>
+        </div>
+        <div class="mt-12 flex items-center gap-4 border-t border-black/10 pt-6 dark:border-white/15">
+          <div class="flex -space-x-3">
+            <img class="h-10 w-10 rounded-full border-2 border-paper object-cover dark:border-[#111110]" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="" />
+            <img class="h-10 w-10 rounded-full border-2 border-paper object-cover dark:border-[#111110]" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80" alt="" />
+            <img class="h-10 w-10 rounded-full border-2 border-paper object-cover dark:border-[#111110]" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80" alt="" />
+          </div>
+          <p class="text-xs leading-5 text-stone-500 dark:text-stone-400"><span class="block font-semibold text-ink dark:text-stone-100">Your story matters.</span> Let’s make it last forever.</p>
+        </div>
+      </div>
+      <div class="reveal order-1 relative md:order-2">
+        <div class="absolute -right-2 -top-3 h-28 w-28 rounded-full border border-accent/50 md:-right-5 md:-top-5"></div>
+        <div class="relative overflow-hidden rounded-t-[48%] rounded-b-2xl shadow-soft">
+          <img class="h-[430px] w-full object-cover sm:h-[560px] md:h-[650px]" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=90" alt="Artistic professional portrait photographed in natural light" fetchpriority="high" />
+          <div class="absolute bottom-5 left-5 rounded-xl border border-white/30 bg-black/40 px-4 py-3 text-white backdrop-blur-md">
+            <p class="text-[10px] uppercase tracking-[.22em] text-white/75">The art of seeing</p>
+            <p class="mt-1 font-display text-xl">Real people. Real moments.</p>
+          </div>
+        </div>
+        <div class="absolute -bottom-5 -left-3 hidden rounded-2xl bg-white p-4 shadow-soft dark:bg-[#242421] sm:block">
+          <p class="font-display text-3xl text-accent">01</p><p class="mt-1 text-[10px] uppercase tracking-[.18em]">Your moment, preserved</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Intro strip -->
+    <section class="border-y border-black/10 dark:border-white/10">
+      <div class="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-5 py-8 sm:grid-cols-4 md:px-8">
+        <div><p class="font-display text-2xl">Portraits</p><p class="mt-1 text-xs text-muted dark:text-stone-400">Your best self, naturally</p></div>
+        <div><p class="font-display text-2xl">Weddings</p><p class="mt-1 text-xs text-muted dark:text-stone-400">Love worth remembering</p></div>
+        <div><p class="font-display text-2xl">Events</p><p class="mt-1 text-xs text-muted dark:text-stone-400">Every detail, every feeling</p></div>
+        <div><p class="font-display text-2xl">Creative</p><p class="mt-1 text-xs text-muted dark:text-stone-400">Ideas brought to life</p></div>
+      </div>
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="reveal mb-12 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+        <div><p class="mb-4 text-[11px] font-semibold uppercase tracking-[.28em] text-accent">Selected stories</p><h2 class="font-display text-4xl tracking-tight sm:text-5xl">A glimpse through<br class="hidden sm:block" /> our lens.</h2></div>
+        <p class="max-w-sm text-sm leading-6 text-stone-600 dark:text-stone-300">A few moments from the stories we love to tell. Your special moment could be next.</p>
+      </div>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="photo-card reveal group">
+          <div class="overflow-hidden rounded-2xl"><img class="h-[360px] w-full object-cover" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=85" alt="Wedding couple celebrating outdoors" loading="lazy" /></div>
+          <div class="flex items-start justify-between py-4"><div><h3 class="font-display text-2xl">The Wedding Story</h3><p class="mt-1 text-sm text-muted dark:text-stone-400">Love & celebrations</p></div><span class="text-xl text-accent transition group-hover:translate-x-1">↗</span></div>
+        </article>
+        <article class="photo-card reveal group lg:mt-12">
+          <div class="overflow-hidden rounded-2xl"><img class="h-[360px] w-full object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=900&q=85" alt="Confident portrait in soft natural light" loading="lazy" /></div>
+          <div class="flex items-start justify-between py-4"><div><h3 class="font-display text-2xl">Portrait Sessions</h3><p class="mt-1 text-sm text-muted dark:text-stone-400">Personality in every frame</p></div><span class="text-xl text-accent transition group-hover:translate-x-1">↗</span></div>
+        </article>
+        <article class="photo-card reveal group">
+          <div class="overflow-hidden rounded-2xl"><img class="h-[360px] w-full object-cover" src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=85" alt="Elegant event setup ready for a celebration" loading="lazy" /></div>
+          <div class="flex items-start justify-between py-4"><div><h3 class="font-display text-2xl">Events & Details</h3><p class="mt-1 text-sm text-muted dark:text-stone-400">The atmosphere, captured</p></div><span class="text-xl text-accent transition group-hover:translate-x-1">↗</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Statement banner -->
+    <section class="relative overflow-hidden bg-[#e9e3d9] text-ink dark:bg-[#24231f] dark:text-stone-100">
+      <div class="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 md:grid-cols-2 md:px-8 md:py-24">
+        <div class="reveal"><p class="mb-5 text-[11px] font-semibold uppercase tracking-[.28em] text-accent">More than a photograph</p><h2 class="font-display text-4xl leading-tight sm:text-5xl">The day will pass.<br /><em class="font-normal">The memory stays.</em></h2></div>
+        <div class="reveal"><p class="max-w-lg text-base leading-7 text-stone-700 dark:text-stone-300">We believe the best photographs don't just show how a moment looked — they bring you back to how it felt. Every session is personal, relaxed, and built around you.</p><a href="#contact" class="mt-7 inline-flex items-center gap-3 border-b border-current pb-2 text-sm font-semibold">Let’s create something meaningful <span class="text-accent">↗</span></a></div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="reveal mb-12 text-center"><p class="mb-4 text-[11px] font-semibold uppercase tracking-[.28em] text-accent">What we capture</p><h2 class="font-display text-4xl sm:text-5xl">Made for your moments.</h2></div>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="reveal flex gap-5 rounded-2xl border border-black/10 p-6 dark:border-white/10 sm:p-8"><span class="font-display text-3xl text-accent">01</span><div><h3 class="font-display text-2xl">Portrait Photography</h3><p class="mt-3 text-sm leading-6 text-stone-600 dark:text-stone-300">Personal, graduation, family, and professional portraits that feel like you.</p></div></div>
+        <div class="reveal flex gap-5 rounded-2xl border border-black/10 p-6 dark:border-white/10 sm:p-8"><span class="font-display text-3xl text-accent">02</span><div><h3 class="font-display text-2xl">Wedding Photography</h3><p class="mt-3 text-sm leading-6 text-stone-600 dark:text-stone-300">From the big moments to the quiet glances, tell the full story of your day.</p></div></div>
+        <div class="reveal flex gap-5 rounded-2xl border border-black/10 p-6 dark:border-white/10 sm:p-8"><span class="font-display text-3xl text-accent">03</span><div><h3 class="font-display text-2xl">Events & Celebrations</h3><p class="mt-3 text-sm leading-6 text-stone-600 dark:text-stone-300">Birthdays, graduations, gatherings, and milestone moments worth keeping.</p></div></div>
+        <div class="reveal flex gap-5 rounded-2xl border border-black/10 p-6 dark:border-white/10 sm:p-8"><span class="font-display text-3xl text-accent">04</span><div><h3 class="font-display text-2xl">Brand & Creative</h3><p class="mt-3 text-sm leading-6 text-stone-600 dark:text-stone-300">Product photos, creative concepts, and visual content for your brand.</p></div></div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-24 md:grid-cols-2 md:px-8 md:pb-32">
+      <div class="reveal relative">
+        <img class="h-[420px] w-full rounded-2xl object-cover sm:h-[520px]" src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=1000&q=85" alt="Camera and photography equipment" loading="lazy" />
+        <span class="absolute -bottom-4 -right-3 rounded-xl bg-accent px-5 py-4 font-display text-xl text-white sm:right-5">Made with intention.</span>
+      </div>
+      <div class="reveal md:pl-6">
+        <p class="mb-5 text-[11px] font-semibold uppercase tracking-[.28em] text-accent">Behind the camera</p>
+        <h2 class="font-display text-4xl leading-tight sm:text-5xl">Photography is how we say, <em class="font-normal">“remember this.”</em></h2>
+        <p class="mt-6 text-base leading-7 text-stone-600 dark:text-stone-300">At Bekam Photo Studio, our goal is simple: create photographs that feel genuine, timeless, and unmistakably yours. We bring patience, creativity, and attention to every frame.</p>
+        <p class="mt-4 text-base leading-7 text-stone-600 dark:text-stone-300">Have an idea in mind? Tell us about it. We’d love to help you bring it to life.</p>
+        <a href="#contact" class="mt-8 inline-flex rounded-full bg-ink px-7 py-4 text-sm font-semibold text-white transition hover:bg-accent dark:bg-stone-100 dark:text-ink dark:hover:bg-accent">Tell us your idea ↗</a>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="bg-[#171715] text-white dark:bg-[#e9e3d9] dark:text-ink">
+      <div class="mx-auto grid max-w-7xl gap-12 px-5 py-20 md:grid-cols-2 md:px-8 md:py-28">
+        <div class="reveal">
+          <p class="mb-5 text-[11px] font-semibold uppercase tracking-[.28em] text-[#c5a17b]">Let’s make it memorable</p>
+          <h2 class="font-display text-4xl leading-tight sm:text-6xl">Your moment<br />starts here.</h2>
+          <p class="mt-6 max-w-md text-base leading-7 text-white/70 dark:text-stone-700">Tell us what you’re celebrating and when. We’ll get back to you to discuss your session.</p>
+          <div class="mt-9 space-y-3 text-sm text-white/80 dark:text-stone-700">
+            <p>✉ <span class="ml-2">Add studio email here</span></p>
+            <p>⌖ <span class="ml-2">Add studio location here</span></p>
+            <p>◷ <span class="ml-2">By appointment</span></p>
+          </div>
+        </div>
+        <form id="booking-form" class="reveal rounded-2xl bg-white p-6 text-ink sm:p-8 dark:bg-[#f8f6f1]">
+          <div class="grid gap-5 sm:grid-cols-2">
+            <label class="text-xs font-semibold uppercase tracking-wider">Your name<input required name="name" autocomplete="name" class="mt-2 w-full rounded-lg border border-black/15 bg-transparent px-4 py-3 text-sm font-normal normal-case tracking-normal outline-none focus:border-accent" placeholder="Full name" /></label>
+            <label class="text-xs font-semibold uppercase tracking-wider">Phone number<input required name="phone" autocomplete="tel" class="mt-2 w-full rounded-lg border border-black/15 bg-transparent px-4 py-3 text-sm font-normal normal-case tracking-normal outline-none focus:border-accent" placeholder="+251 ..." /></label>
+            <label class="text-xs font-semibold uppercase tracking-wider sm:col-span-2">What do you need?
+              <select name="service" class="mt-2 w-full rounded-lg border border-black/15 bg-white px-4 py-3 text-sm font-normal normal-case tracking-normal outline-none focus:border-accent">
+                <option>Portrait photography</option><option>Wedding photography</option><option>Event photography</option><option>Brand / product photography</option><option>Something else</option>
+              </select>
+            </label>
+            <label class="text-xs font-semibold uppercase tracking-wider sm:col-span-2">Tell us a little more<textarea name="message" rows="4" class="mt-2 w-full resize-y rounded-lg border border-black/15 bg-transparent px-4 py-3 text-sm font-normal normal-case tracking-normal outline-none focus:border-accent" placeholder="Date, location, and what you have in mind..."></textarea></label>
+          </div>
+          <button type="submit" class="mt-6 w-full rounded-full bg-ink px-6 py-4 text-sm font-semibold text-white transition hover:bg-accent">Send booking enquiry ↗</button>
+          <p id="form-note" class="mt-4 text-center text-xs leading-5 text-stone-500">This demo opens your email app to send the enquiry. Studio email must be configured in script.js.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#111110] text-white/65 dark:bg-[#f2efe8] dark:text-stone-600">
+    <div class="mx-auto flex max-w-7xl flex-col gap-5 px-5 py-7 text-xs sm:flex-row sm:items-center sm:justify-between md:px-8">
+      <a href="#home" class="font-semibold tracking-[.18em] text-white dark:text-ink">BEKAM PHOTO STUDIO</a>
+      <p>Every moment, beautifully told.</p>
+      <p>© <span id="year"></span> Bekam Photo Studio. All rights reserved.</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
